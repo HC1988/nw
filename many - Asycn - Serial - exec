@@ -1,0 +1,38 @@
+/**
+ * Created by phpStorm
+ * author      : linwang5@iflytek.com
+ * createTime  : 2017/1/12 15:32
+ * description :
+ */
+(function (win) {
+    function global_queue(arr, fun) {
+        var def = $.Deferred();
+        var qName = _COMMON.guid(10);
+        var len = arr.length, curIndex = 0;
+
+        for (var i = 0; i < len; i++) {
+            $.queue(document, qName, single)
+        }
+        function single(next, hooks) {
+                fun(arr[curIndex]).done(function () {
+                    if (curIndex == len - 1) {
+                        def.resolve();
+                    } else {
+                        curIndex++;
+                        next && next();
+                    }
+                }).fail(function (e) {
+                    def.reject(e);
+                });
+        }
+
+        if (len>0) $.dequeue(document, qName);
+        else setTimeout(function () {
+            def.resolve();
+        }, 0);
+        return def.promise();
+
+    }
+
+    win.global_queue = global_queue;
+})(window);
