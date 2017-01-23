@@ -1,0 +1,22 @@
+1.find your nw's version ,like 0.8.7-rc4,we introduce how uee it with windows OS
+2.install follow stuff:
+      1) pythod (support 2.7.3 ,but < 3.0.0)
+      2) VC++ (maybe vs2015)
+      3) nodejs 
+      4)npm 
+      5)nw-gyp
+      
+3.configure like this:
+    install you needed module:    npm install ffi
+   next:
+     nw-gyp configure --target=0.8.7-rc4 --target-arch=ia32
+     
+   next:
+      nw-gyp build
+      
+ PS:
+   if your nw version is too old , maybe you should check that version weather is support.
+   and some version like 0.8.7-rc4 ,v8 is not fit ,so you can change V8 funcitoncallback:
+   
+   like：0 => (v8::FunctionCallback)0
+      
